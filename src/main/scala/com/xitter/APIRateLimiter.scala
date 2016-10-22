@@ -29,6 +29,7 @@ trait APIRateLimiter {
     var rate = defaultAPIRate._1
     var interval = defaultAPIRate._2
 
+    //Lookup in config if API key's rate limit is explicitly configured
     if (customAPIKeyRate containsKey key) {
       //Excuse for complex typecasts, would find a better way
       val list = customAPIKeyRate.get(key).asInstanceOf[util.ArrayList[Double]]

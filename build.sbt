@@ -1,4 +1,4 @@
-name := "agoda-web-service"
+name := "hotel-search-service"
 
 version := "0.1"
 

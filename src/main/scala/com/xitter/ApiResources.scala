@@ -16,7 +16,7 @@ trait ApiResources extends HttpService with JsonSupport with APIRateLimiter {
   val hotelService: HotelService
 
   def validateApiKey(route: Route) =
-    headerValueByName("api-key") { key =>
+    headerValueByName("X-APIKey") { key =>
       if (validAPIRateLimit(key))
         route
       else
@@ -24,10 +24,12 @@ trait ApiResources extends HttpService with JsonSupport with APIRateLimiter {
     }
 
   def hotelRoutes: Route = pathPrefix("hotels") {
-    path(Segment) { id =>
+    path("search") {
       get {
-        validateApiKey {
-          complete(hotelService.getHotel(id))
+        parameters("city", "sort" ? "ASC") { (city, sortOrder) =>
+          validateApiKey {
+            complete(hotelService.getHotelsByCity(city, sortOrder))
+          }
         }
       }
     }

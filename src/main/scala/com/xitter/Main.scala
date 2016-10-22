@@ -16,7 +16,7 @@ object Main extends App {
   val host = config.getString("http.host")
   val port = config.getInt("http.port")
 
-  implicit val system = ActorSystem("quiz-management-service")
+  implicit val system = ActorSystem("hotel-search-service")
   implicit val executionContext = system.dispatcher
   implicit val timeout = Timeout(10 seconds)
 

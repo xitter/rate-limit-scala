@@ -8,15 +8,25 @@ import scala.concurrent.{ExecutionContext, Future}
 /**
   * Created by vijay on 21/10/16.
   */
+
 class HotelService(implicit val executionContext: ExecutionContext) {
 
-  var hotelsByCity = getHotelByCityFromCSV
-
-  def getHotel(id: String): Future[Option[List[Hotel]]] = Future {
-    Some(hotelsByCity(id))
+  def getHotelsByCity(city: String, sortOrder: String): Future[List[Hotel]] = Future {
+    hotelsByCityMap(city)
+      .sortBy(_.price)
+      .sortWith((a, b) => {
+        if (sortOrder.equalsIgnoreCase("DESC"))
+          a.price > b.price
+        else
+          a.price < b.price
+      })
   }
 
-  private def getHotelByCityFromCSV: Map[String, List[Hotel]] = {
+  /*
+  * Load cities from the CSV into a map
+  * key- city , value - @Hotel
+  * */
+  private val hotelsByCityMap = {
     val content = Source.fromFile("src/main/resources/hoteldb.csv").getLines.map(_.split(","))
     val hotels = scala.collection.mutable.ListBuffer[Hotel]()
     content.foreach(
