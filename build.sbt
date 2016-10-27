@@ -21,4 +21,8 @@ libraryDependencies ++= {
   )
 }
 
+enablePlugins(JavaServerAppPackaging)
+
 mainClass in Global := Some("com.xitter.Main")
+
+jarName in assembly := "hotel-search-service.jar"
