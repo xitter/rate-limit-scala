@@ -1,4 +1,4 @@
-# Hotel Search Service
+# Spray API Server Sample(with API rate limiting)
 
 ## How to run the service
 Clone the repository:
@@ -22,7 +22,7 @@ A Global rate limit is defined. However, specific rate limits can also be config
 
 Application uses CSV as its data repository. CSV is located at src/main/resources/hoteldb.csv
 
-## Usage
+## Sample Usage
 
 ### Search Hotel by City 
 
